@@ -31,17 +31,18 @@ Board::~Board()
 
 int Board::draw()
 {
-   cout << "\t_______________________________" << endl;
+   cout << "\t   0   1   2   3" << endl;
+   cout << "\t +---+---+---+---+" << endl;
    for(int rowIndex = 0; rowIndex <= 3; rowIndex++)
    {
-      cout << "\t";
+      cout << "\t" << rowIndex << "| ";
       for(int columnIndex = 0; columnIndex <= 3; columnIndex++)
       {
-         cout << pieces[rowIndex][columnIndex] << "|";
+         cout << this->pieces[rowIndex][columnIndex]->getColor() << " | ";
       }
       cout << endl;
+      cout << "\t +---+---+---+---+" << endl;
    }
-   cout << "\t_______________________________"  << endl;
    return 0;
 }
 
@@ -148,5 +149,11 @@ int Board::declareWinner()
     else
        cout << "It's a draw!" << endl;
 
+   return 0;
+}
+
+int Board::placePiece(int rowCoordinate, int columnCoordinate, char playersColor)
+{
+   this->pieces[rowCoordinate][columnCoordinate]->setColor(playersColor);
    return 0;
 }

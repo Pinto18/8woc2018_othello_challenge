@@ -17,7 +17,7 @@ class Board
       int draw();
       int flipPieces(int, int, char);
       bool isFull();
-      //int nextTurn();
+      int placePiece(int, int, char);
       int declareWinner();
    private:
       Piece* pieces[4][4];
