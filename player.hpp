@@ -1,5 +1,6 @@
 //Header File for Player Class
-
+#ifndef PLAYER_H
+#define PLAYER_H
 //#include "piece.hpp"
 #include <iostream>
 using namespace std;
@@ -7,7 +8,7 @@ using namespace std;
 class Player
 {
    public:
-      Player();
+      Player(char, string);
       char getColor(){return this->color;};
       int setColor(char);
       string getName(){return this->name;};
@@ -17,3 +18,4 @@ class Player
       string name;
       //int turn();
 };
+#endif

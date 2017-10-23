@@ -1,9 +1,10 @@
 //Implementation For Player Class
  #include "player.hpp"
 
-Player::Player()
+Player::Player(char playerColor, string playerName)
 {
-   this->color = ' ';
+   this->color = playerColor;
+   this->name = playerName;
 }
 
 int Player::setColor(char colorChar)

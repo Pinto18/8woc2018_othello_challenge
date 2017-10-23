@@ -1,9 +1,10 @@
 //Header File for Piece Class
-
+#ifndef PIECE_H
+#define PIECE_H
 class Piece
 {
    public:
-      Piece();
+      Piece(char);
       int setColor(char);
       int setPosition(int, int);
       char getColor(){return this->color;};
@@ -15,3 +16,4 @@ class Piece
       int rowCoordinate;
       int columnCoordinate;
 };
+#endif

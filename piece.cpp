@@ -4,9 +4,9 @@
 #include <iostream>
 using namespace std;
 
-Piece::Piece()
+Piece::Piece(char initColor)
 {
-   this->color=' ';
+   this->color = initColor;
    this->rowCoordinate = 0;
    this->columnCoordinate = 0;
 }
