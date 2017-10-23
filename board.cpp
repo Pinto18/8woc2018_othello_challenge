@@ -73,6 +73,8 @@ int Board::flipPieces( int rowCoordinate,
     //checking along the column of the piece that was placed
     int pieceDistance = 0;
     int flipIndex = 0;
+    int firstPosition = 0;
+    int secondPosition = 0;
 
     for(int rowIndex = 0; rowIndex <= 3; rowIndex++)  //make sure we are not looking at the piece that was just placed
     {                                                 //or a piece that is right next to the one that was placed

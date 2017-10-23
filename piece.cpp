@@ -13,11 +13,8 @@ Piece::Piece(char initColor)
 
 int Piece::setColor(char colorChar)
 {
-   if(this->color != ' ')
-      cout << "ERROR: Invalid place already taken!" << endl;
-   else
-      this->color = colorChar;
-  return 0;
+   this->color = colorChar;
+   return 0;
 }
 
 int Piece::setPosition( int rowCoordinate,

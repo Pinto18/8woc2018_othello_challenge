@@ -17,13 +17,14 @@ int main()
 
    cout << "Welcome to Othello!" << endl << endl;
    currentPlayer = player1;
+   board->draw();
    while(!gameOver)
    {
-      board->draw();
-      cout << "Enter where you want to place your piece[x,y]: ";
+      cout << endl << "Enter where you want to place your piece[x,y]: ";
       cin >> rowPosition  >> columnPosition;
       board->placePiece(rowPosition, columnPosition, currentPlayer->getColor());
       board->flipPieces(rowPosition, columnPosition, currentPlayer->getColor());
+      cout << endl;
       board->draw();
       if(board->isFull())
         gameOver = true;
@@ -42,12 +43,12 @@ int nextPlayer(Player* p1, Player* p2)
    if(currentPlayer == p1)
    {
       currentPlayer = p2;
-      cout << "Player 2's turn" << endl <<endl;
+      cout << endl << "Player 2's turn" << endl <<endl;
    }
    else
    {
       currentPlayer = p1;
-      cout << "Player 1's turn" << endl << endl;
+      cout << endl << "Player 1's turn" << endl << endl;
    }
    return 0;
 };
