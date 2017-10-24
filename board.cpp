@@ -68,10 +68,18 @@ bool Board::isValidMove(int rowCoordinate, int columnCoordinate)
 {
    if(this->pieces[rowCoordinate][columnCoordinate]->getColor() != ' ')
       return false;
-   else if(rowCoordinate < 0 || rowCoordinate > (MAX_HEIGHT - 1) || columnCoordinate < 0 || columnCoordinate > (MAX_WIDTH - 1))
+
+   if(rowCoordinate < 0 || rowCoordinate > (MAX_HEIGHT - 1) || columnCoordinate < 0 || columnCoordinate > (MAX_WIDTH - 1))
       return false;
-   else
-      return true;
+
+   if(rowCoordinate > 0)
+    {
+      if(columnCoordinate > 0)
+      {
+
+      }
+    }
+   return true;
 }
 
 int Board::flipPieces( const int rowCoordinate,
