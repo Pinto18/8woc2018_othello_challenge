@@ -4,7 +4,7 @@
 class Piece
 {
    public:
-      Piece(char);
+      Piece(char, int, int);
       int setColor(char);
       int setPosition(int, int);
       char getColor(){return this->color;};

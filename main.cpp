@@ -17,6 +17,7 @@ int main()
 
    cout << "Welcome to Othello!" << endl << endl;
    currentPlayer = player1;
+   cout << endl << currentPlayer->getName() <<" (" << currentPlayer->getColor() << ") begins" << endl << endl;
    board->draw();
    while(!gameOver)
    {
@@ -41,14 +42,9 @@ int main()
 int nextPlayer(Player* p1, Player* p2)
 {
    if(currentPlayer == p1)
-   {
       currentPlayer = p2;
-      cout << endl << "Player 2's turn" << endl <<endl;
-   }
    else
-   {
       currentPlayer = p1;
-      cout << endl << "Player 1's turn" << endl << endl;
-   }
+   cout << endl << currentPlayer->getName() << "'s (" << currentPlayer->getColor() << ") turn" << endl << endl;
    return 0;
 };

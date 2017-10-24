@@ -4,11 +4,11 @@
 #include <iostream>
 using namespace std;
 
-Piece::Piece(char initColor)
+Piece::Piece(char initColor, int rowCoordinate, int columnCoordinate)
 {
    this->color = initColor;
-   this->rowCoordinate = 0;
-   this->columnCoordinate = 0;
+   this->rowCoordinate = rowCoordinate;
+   this->columnCoordinate = columnCoordinate;
 }
 
 int Piece::setColor(char colorChar)

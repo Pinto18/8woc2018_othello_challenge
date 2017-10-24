@@ -7,6 +7,8 @@
 #include "player.hpp"
 #include "piece.hpp"
 
+#define MAX_HEIGHT 4
+#define MAX_WIDTH 4
 using namespace std;
 
 class Board
@@ -20,9 +22,6 @@ class Board
       int placePiece(int, int, char);
       int declareWinner();
    private:
-      Piece* pieces[4][4];
-     //Player player1 = new Player('B');
-     //Player player2 = new Player('W');
-     //Player* currentPlayer;
+      Piece* pieces[MAX_HEIGHT][MAX_WIDTH];
 };
 #endif
