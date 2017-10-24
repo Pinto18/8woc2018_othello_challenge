@@ -29,7 +29,11 @@ int Piece::flip()
 {
    if(this->getColor() == 'B')
       this->setColor('W');
-   else
+   else if(this->getColor() == 'W')
       this->setColor('B');
+   else
+      return 0;
+
+   cout << endl << "Flipped piece at (" << this->getRowCoordinate() << "," << this->getColumnCoordinate() << ")" << endl;
    return 0;
 }

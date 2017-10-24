@@ -22,6 +22,7 @@ Board::Board()
       }
    }
 }
+
 Board::~Board()
 {
    for(int rowIndex = 0; rowIndex <= (MAX_HEIGHT - 1); rowIndex++)
@@ -57,17 +58,15 @@ bool Board::isFull()
          if(pieces[rowIndex][columnIndex]->getColor() == ' ')
          {
             allSpacesOccupied = false;
-            break;
          }
       }
-      break;
    }
    return allSpacesOccupied;
 }
 
-int Board::flipPieces( int rowCoordinate,
-                int columnCoordinate,
-                char playersColor
+int Board::flipPieces( const int rowCoordinate,
+                const int columnCoordinate,
+                const char playersColor
               )
 {
     Piece* checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
@@ -84,14 +83,13 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate)
        {
           checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() - 1][columnCoordinate];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() + 1][checkPiecePointer->getColumnCoordinate()]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
 
     //check all rows above the piece the player placed
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     if(rowCoordinate > 0)
     {
        for(int rowIndex = rowCoordinate; rowIndex >= 1; rowIndex--)
@@ -103,16 +101,15 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate)
        {
           checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() + 1][columnCoordinate];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() - 1][checkPiecePointer->getColumnCoordinate()]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
     /************************ END ROW SEARCH *******************************************************/
 
     /***************************** COLUMN SEARCH ***************************************************/
     //check all columns to the right of the piece the player placed
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     if(columnCoordinate < (MAX_WIDTH - 1))
     {
        for(int columnIndex = columnCoordinate; columnIndex < (MAX_WIDTH - 1); columnIndex++)
@@ -123,11 +120,11 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
           checkPiecePointer = pieces[rowCoordinate][checkPiecePointer->getColumnCoordinate() - 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate()][checkPiecePointer->getColumnCoordinate() + 1]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     //check all columns to the left of the piece the player placed
     if(columnCoordinate > 0)
     {
@@ -139,35 +136,39 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
           checkPiecePointer = pieces[rowCoordinate][checkPiecePointer->getColumnCoordinate() + 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate()][checkPiecePointer->getColumnCoordinate() - 1])
+             checkPiecePointer->flip();
        }
     }
     /************************** END COLUMN SEARCH **************************************************/
 
     /*********************************** DIAGNOL SEARCH ********************************************/
 
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     //Checking downard and to the left
-    if(rowCoordinate < (MAX_HEIGHT - 1) && columnCoordinate >= 1)
+    if(rowCoordinate < (MAX_HEIGHT - 1) && columnCoordinate > 0)
     {
+       cout << endl << "Checking downward and to the left" << endl;
        for( int rowIndex = rowCoordinate, columnIndex = columnCoordinate;
             rowIndex < (MAX_HEIGHT - 1) && columnIndex > 1;
             rowIndex++, columnIndex--)
        {
           if(this->pieces[rowIndex + 1][columnIndex - 1]->getColor() == playersColor)
-             checkPiecePointer = this->pieces[rowIndex + 1][columnCoordinate - 1];
+          {
+             checkPiecePointer = this->pieces[rowIndex + 1][columnIndex - 1];
+             //cout << "Looking at (" << this->pieces[rowIndex + 1][]
+          }
+          cout << endl << "Checker is now at (" << checkPiecePointer->getRowCoordinate() << "," << checkPiecePointer->getColumnCoordinate() << ")" << endl;
        }
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate && checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
           checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() - 1][checkPiecePointer->getColumnCoordinate() + 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-               checkPiecePointer->flip();
+          cout << endl << "Checker is now at (" << checkPiecePointer->getRowCoordinate() << "," << checkPiecePointer->getColumnCoordinate() << ")" << endl;
+           if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() + 1][checkPiecePointer->getColumnCoordinate() - 1]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     //checking downward and to the right
     if(rowCoordinate < (MAX_HEIGHT - 1) && columnCoordinate < (MAX_WIDTH - 1))
     {
@@ -181,12 +182,11 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate && checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
           checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() - 1][checkPiecePointer->getColumnCoordinate() - 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() + 1][checkPiecePointer->getColumnCoordinate() + 1]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     //checking upwards and to the left
     if(rowCoordinate > 0 && columnCoordinate > 0)
     {
@@ -199,13 +199,12 @@ int Board::flipPieces( int rowCoordinate,
        }
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate && checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
-          checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() +1][checkPiecePointer->getColumnCoordinate() + 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-               checkPiecePointer->flip();
+          checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() + 1][checkPiecePointer->getColumnCoordinate() + 1];
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() - 1][checkPiecePointer->getColumnCoordinate() - 1]->getColor() != ' ')
+            checkPiecePointer->flip();
        }
     }
-    checkPiecePointer = pieces[rowCoordinate][columnCoordinate];
+    checkPiecePointer = this->pieces[rowCoordinate][columnCoordinate];
     //checking upwards and to the right
     if(rowCoordinate > 0 && columnCoordinate < (MAX_WIDTH - 1))
     {
@@ -219,9 +218,8 @@ int Board::flipPieces( int rowCoordinate,
        while(checkPiecePointer->getRowCoordinate() != rowCoordinate && checkPiecePointer->getColumnCoordinate() != columnCoordinate)
        {
           checkPiecePointer = pieces[checkPiecePointer->getRowCoordinate() + 1][checkPiecePointer->getColumnCoordinate() - 1];
-          if(checkPiecePointer != pieces[rowCoordinate][columnCoordinate])
-             if(checkPiecePointer->getColor() != playersColor)
-                checkPiecePointer->flip();
+          if(checkPiecePointer->getColor() != playersColor && this->pieces[checkPiecePointer->getRowCoordinate() - 1][checkPiecePointer->getColumnCoordinate() + 1]->getColor() != ' ')
+             checkPiecePointer->flip();
        }
     }
     /************************************ END DIAGNOL SEARCH ***************************************/

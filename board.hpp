@@ -17,7 +17,7 @@ class Board
       Board();
       ~Board();
       int draw();
-      int flipPieces(int, int, char);
+      int flipPieces(const int, const int, const char);
       bool isFull();
       int placePiece(int, int, char);
       int declareWinner();
