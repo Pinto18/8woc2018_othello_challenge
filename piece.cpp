@@ -33,7 +33,5 @@ int Piece::flip()
       this->setColor('B');
    else
       return 0;
-
-   cout << endl << "Flipped piece at (" << this->getRowCoordinate() << "," << this->getColumnCoordinate() << ")" << endl;
    return 0;
 }

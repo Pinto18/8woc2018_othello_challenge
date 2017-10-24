@@ -19,6 +19,7 @@ class Board
       int draw();
       int flipPieces(const int, const int, const char);
       bool isFull();
+      bool isValidMove(int, int);
       int placePiece(int, int, char);
       int declareWinner();
    private:

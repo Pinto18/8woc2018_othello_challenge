@@ -23,14 +23,20 @@ int main()
    {
       cout << endl << "Enter where you want to place your piece[x,y]: ";
       cin >> rowPosition  >> columnPosition;
-      board->placePiece(rowPosition, columnPosition, currentPlayer->getColor());
-      board->flipPieces(rowPosition, columnPosition, currentPlayer->getColor());
+      if(board->isValidMove(rowPosition, columnPosition))
+      {
+         board->placePiece(rowPosition, columnPosition, currentPlayer->getColor());
+         board->flipPieces(rowPosition, columnPosition, currentPlayer->getColor());
+         nextPlayer(player1, player2);
+      }
+      else
+         cout << "Invalid move. Try again."  << endl;
       cout << endl;
       board->draw();
       if(board->isFull())
         gameOver = true;
-     else
-        nextPlayer(player1, player2);
+     //else
+     //   nextPlayer(player1, player2);
    }
    board->declareWinner();
 
