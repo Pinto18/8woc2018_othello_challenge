@@ -9,13 +9,13 @@ Board::Board()
    {
       for(int columnIndex = 0; columnIndex <= (MAX_WIDTH - 1); columnIndex++)
       {
-         if(rowIndex == 1 && columnIndex == 1)
+         if(rowIndex == ((MAX_HEIGHT / 2) - 1) && columnIndex == ((MAX_WIDTH / 2) - 1))
             this->pieces[rowIndex][columnIndex] = new Piece('W', rowIndex, columnIndex);
-        else if(rowIndex == 2 && columnIndex == 2)
+        else if(rowIndex == (MAX_HEIGHT / 2) && columnIndex == (MAX_WIDTH / 2))
            this->pieces[rowIndex][columnIndex] = new Piece('W', rowIndex, columnIndex);
-        else if(rowIndex == 1 && columnIndex == 2)
+        else if(rowIndex == ((MAX_HEIGHT / 2) - 1) && columnIndex == (MAX_WIDTH / 2))
            this->pieces[rowIndex][columnIndex] = new Piece('B', rowIndex, columnIndex);
-        else if(rowIndex == 2 && columnIndex == 1)
+        else if(rowIndex == (MAX_HEIGHT / 2) && columnIndex == ((MAX_WIDTH / 2) - 1))
            this->pieces[rowIndex][columnIndex] = new Piece('B', rowIndex, columnIndex);
         else
            this->pieces[rowIndex][columnIndex] = new Piece(' ', rowIndex, columnIndex);
@@ -32,8 +32,8 @@ Board::~Board()
 
 int Board::draw()
 {
-   cout << "\t   0   1   2   3" << endl;
-   cout << "\t +---+---+---+---+" << endl;
+   cout << "\t   0   1   2   3   4   5   6   7   8   9" << endl;
+   cout << "\t +---+---+---+---+---+---+---+---+---+---+" << endl;
    for(int rowIndex = 0; rowIndex <= (MAX_HEIGHT - 1); rowIndex++)
    {
       cout << "\t" << rowIndex << "| ";
@@ -42,7 +42,7 @@ int Board::draw()
          cout << this->pieces[rowIndex][columnIndex]->getColor() << " | ";
       }
       cout << endl;
-      cout << "\t +---+---+---+---+" << endl;
+      cout << "\t +---+---+---+---+---+---+---+---+---+---+" << endl;
    }
    return 0;
 }
@@ -67,6 +67,8 @@ bool Board::isFull()
 bool Board::isValidMove(int rowCoordinate, int columnCoordinate)
 {
    if(this->pieces[rowCoordinate][columnCoordinate]->getColor() != ' ')
+      return false;
+   else if(rowCoordinate < 0 || rowCoordinate > (MAX_HEIGHT - 1) || columnCoordinate < 0 || columnCoordinate > (MAX_WIDTH - 1))
       return false;
    else
       return true;

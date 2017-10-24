@@ -7,8 +7,8 @@
 #include "player.hpp"
 #include "piece.hpp"
 
-#define MAX_HEIGHT 4
-#define MAX_WIDTH 4
+#define MAX_HEIGHT 10
+#define MAX_WIDTH 10
 using namespace std;
 
 class Board
